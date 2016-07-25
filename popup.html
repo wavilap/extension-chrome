@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+	body{
+	  min-width:360px;
+	}
+	a{
+	  color:#f90;
+	  text-decoration:none;
+	}
+	a:hover{
+	  text-decoration:underline;
+	}
+	p{
+	  font:0.8em sans-serif;
+	}
+	h1{
+	  font:1em sans-serif;
+	  color:#fff;
+	  background:#000;
+	  padding:5px
+	}
+	</style>
+<script type="text/javascript">
+	var xhr=new XMLHttpRequest();
+	xhr.open('GET', 'http://www.forosdelweb.com/usercp.php?fdwapi=1', true);
+	xhr.onreadystatechange=function(){
+	  if(xhr.readyState==4){
+	    var xmlDoc=new DOMParser().parseFromString(xhr.responseText,'text/xml');
+	 
+	    var userinfo=xmlDoc.getElementsByTagName('userinfo')[0];
+	    if(!userinfo){
+	      document.getElementsByTagName('body')[0].innerHTML='<h1>Credencial FdW</h1><p>Desconectado.</p>';
+	      return;
+	    }
+	    else{
+	      var data='<h1>Credencial FdW</h1>';
+	      data+='<img src='+userinfo.getAttribute('avatar')+' class="avatar">';
+	      data+='<p><b>ID:</b> '+userinfo.getAttribute('userid');
+	      data+='&emsp;<b>Username:</b> '+userinfo.getAttribute('username')+'</p>';
+	      data+='<p><b>Karma:</b> '+userinfo.getAttribute('karma');
+	      data+='&emsp;<b>Posts:</b> '+userinfo.getAttribute('posts')+'</p>';
+	      data+='<p><b>Friend Requests:</b> '+userinfo.getAttribute('friendrequest');
+	      data+='&emsp;<b>Private Messages:</b> '+userinfo.getAttribute('privatemessage');
+	      data+='&emsp;<b>Visitor Messages:</b> '+userinfo.getAttribute('visitormessage')+'</p>';
+	      data+='<p><a href="http://www.forosdelweb.com" target="_blank">Foros del Web</a>';
+	      data+='&emsp;<a href="http://www.forosdelweb.com/usercp.php" target="_blank"">Panel de Control</a></p>';
+	      document.getElementsByTagName('body')[0].innerHTML=data;
+	    }
+	  }
+	  else return;
+	}
+	xhr.send(null);
+</script>
+</head>
+ 
+<body>
+<h1>Credencial FdW</h1>
+<p>Conectando...</p>
+</body>
+</html>
